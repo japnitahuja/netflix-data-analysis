@@ -126,7 +126,8 @@ separate_country_df |>
 ![alt text](https://github.com/japnitahuja/airbnb-price-data-analysis/blob/main/Images/5.jpg)
 
 ```{r echo=TRUE}
-#Filtering the dataset to remove TV shows and converting the duration from "X mins" format to numeric format
+#Filtering the dataset to remove TV shows and converting the duration 
+#from "X mins" format to numeric format
 movie_duration <- separate_country_df |> 
   filter(type == "Movie") |>
   mutate(duration = as.numeric(gsub("[^[:digit:]]", "", duration)))
