@@ -36,7 +36,7 @@ library(sf)
 library(lubridate)
 
 #loading the data
-netflix_df <- read.csv("C:/Users/lenovo/Desktop/InfoViz/netflix_titles.csv")
+netflix_df <- read.csv("netflix_titles.csv")
 glimpse(netflix_df)
 ```
 
@@ -284,34 +284,83 @@ ratings_df <- netflix_df |>
 
 #Figure 4 Plot
 ratings_df |> filter(rating %in% c("Kids","Teens","Adults")) |>
-  ggplot(aes(x=1,fill=rating)) +
-  geom_bar(stat="count") +
-  #make pie chart
-  coord_polar("y", start=0) +
-  theme_void() +
+  filter(country %in% top_5_countries$country) |>
+  ggplot(aes(x=country,fill=rating)) +
+  geom_bar(position="dodge",stat="count") +
   #manually setting the fill labels
-  scale_fill_manual(values = c("#db0000", "#564d4d","black","black"), 
-                    breaks = c("Adults", "Teens","Kids","NA"), 
-                    labels = c("Adults", "Teens","Kids","NA")) +
+  scale_fill_manual(values = c("#db0000", "black","#564d4d","pink"), 
+                    breaks = c("Adults", "Kids","Teens","NA"), 
+                    labels = c("Adults", "Kids","Teens","NA")) +
   #setting titles
   labs(title = "Movies and TV shows by Age Ratings",
-       subtitle= "Most movies and shows are for an adult audience",
-       caption = "Figure 4") +
+       subtitle= "Different countries prioritise different audiences.",
+       caption = "Figure 4",
+       x="Country",
+       y="Count") +
+  theme_bw()+
   #fine tuning styling
   theme(plot.title= element_text(face="bold", size=12),
         plot.subtitle= element_text(size=10),
         legend.title=element_blank(),
         legend.key = element_rect(color = NA),
-        legend.key.size = unit(0.5, 'cm'))
+        legend.key.size = unit(0.5, 'cm'),
+        legend.position = "top",
+        panel.border = element_blank(),)
   
 ```
 
-The highest type of content on Netflix is for the adult viewership followed up by teens and then kids. Thus, currently the platform is focusing on content for adults.
+Most of the content produced by US is targeted towards Adults so much so that it is almost equal to the content produced for Teens and Kids combined. Whereas, India's content is focused on Teens more than any other category. Rest of the countries produce most of their content for Adults followed by some content for kids and then Teens.This graph is interesting as it gives us insights into the culture of the country as well. India is more conservative in nature compared to US thus their focus might be on family friendly content. 
+
+##### **Figure 5: Content Acquisition Time by Release Year**
+
+For this graph first the time difference between the release year and the date it is added to netflix needs to be calculated. Here a cuttoff of 2007 is used as Netflix started that year. This means any TV show or Movie released before Netflix was launched as a streaming platform is not considered.
+
+```{r echo=TRUE}
+
+#filter by 2007
+time_diff_df <- netflix_df |> filter(release_year >= 2007) |>
+  #calculated time difference
+  mutate(time_diff = year(date_added) - release_year) |>
+  #remove anamolies where time difference is negative
+  filter(time_diff >= 0) 
+
+
+time_diff_df |> ggplot(aes(x=release_year,y=time_diff)) +
+  #using jitter to avoid discrete categories in the graph
+  geom_jitter(aes(colour=type),size=2,alpha=0.6) +
+  #creating the legend
+  scale_colour_manual(values = c("#db0000", "black"), 
+                    breaks = c("Movie","TV Show"), 
+                    labels = c("Movie","TV Show"),
+                    na.value = "#D3D3D3")+
+  #adding labels
+  labs(title="Content Acquisition Time by Release Year",
+       subtitle="The time taken to add content is steadily decreasing.",
+       x = "Release Year",
+       y = "Time Taken to Add to Netflix (Years)",
+       caption="Figure 5") +
+  #setting theme to black and white
+  theme_bw() +
+  #fine tuning design
+  theme(panel.border = element_blank(), 
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        plot.title= element_text(face="bold", size=12),
+        plot.subtitle= element_text(size=9),
+        legend.title=element_blank(),
+        legend.position = "top") +
+  #adding a axis mark for every 3 years
+   scale_x_continuous(breaks=seq(2007,2021,3))
+  
+  
+```
+
+As can be seen from figure 5, the graph shows the decreasing trend. This means that the content acquisition time has reduced since Netflix was launched. In the early years of Netflix it took them almost 10-15 years to get some of the movies and TV shows that are currently on the platform. However, closer to 2016 it took them anywhere between 0 to 5 years to get content that was produced that year. And now, in 2021, most content is on the platform the year it has released. As for the Movies and TV shows distinction, there does not seem to be any difference in the time due to the type of content. For a streaming company it is very important to get the latest and the trendiest content so that customers use their platform compared to others. And Netflix has successfully decreased their content acquisition cost ten folds which may be a huge factor to its popularity.
 
 #### **Conclusion**
 
 This report aimed to analyze and visualize the Netflix Movies and TV Shows dataset retrieved from Kaggle. The dataset contains 8807 TV shows and Movies with 12 features describing each row. The preliminary data analysis showed that the dataset has missing values in six columns, but they are negligible, except the director column.
 
-In conclusion, the information visualisation of the Netflix dataset have given some interesting insights into the streaming platform. The number of TV shows and movies added to Netflix has consistently increased over the years, with a sharp decline in 2020, possibly due to COVID-19. The analysis also suggests that Netflix's content strategy is more focused on movies than TV shows. Additionally, the average duration of movies in each country was examined, with the western world having shorter movies than their eastern counter parts. Looking at genres, US dominated most with India being a close second in the drama category. Netflix also mostly catered to an adult audience.
+In conclusion, the information visualisation of the Netflix dataset have given some interesting insights into the streaming platform. The number of TV shows and movies added to Netflix has consistently increased over the years, with a sharp decline in 2020, possibly due to COVID-19. The analysis also suggests that Netflix's content strategy is more focused on movies than TV shows. Additionally, the average duration of movies in each country was examined, with the western world having shorter movies than their eastern counter parts. Looking at genres, US dominated most genres with India being a close second in the drama category. The country wise analysis revealed some observations about the country's culture as well. For example in the age rating graph India was seen to make content which was more family friendly than US. This may be due to their traditional and family oriented values. What really impressed me is how Netflix has reduced its content acquisition time for 15 years to 0 years which may have contributed to its global popularity.
 
-These insights can be useful in understanding Netflix's content strategy, the growth of its library, and identifying trends of it's audience.
+These insights can be useful in understanding Netflix's content strategy, the growth of its library, and reasons why it is such a popular platform.
