@@ -356,9 +356,9 @@ time_diff_df |> ggplot(aes(x=release_year,y=time_diff)) +
   
 ```
 
-As can be seen from figure 5, the graph shows the decreasing trend. This means that the content acquisition time has reduced since Netflix was launched. In the early years of Netflix it took them almost 10-15 years to get some of the movies and TV shows that are currently on the platform. However, closer to 2016 it took them anywhere between 0 to 5 years to get content that was produced that year. And now, in 2021, most content is on the platform the year it has released. As for the Movies and TV shows distinction, there does not seem to be any difference in the time due to the type of content. For a streaming company it is very important to get the latest and the trendiest content so that customers use their platform compared to others. And Netflix has successfully decreased their content acquisition cost ten folds which may be a huge factor to its popularity.
-
 ![alt text](https://github.com/japnitahuja/airbnb-price-data-analysis/blob/main/Images/11.jpg)
+
+As can be seen from figure 5, the graph shows the decreasing trend. This means that the content acquisition time has reduced since Netflix was launched. In the early years of Netflix it took them almost 10-15 years to get some of the movies and TV shows that are currently on the platform. However, closer to 2016 it took them anywhere between 0 to 5 years to get content that was produced that year. And now, in 2021, most content is on the platform the year it has released. As for the Movies and TV shows distinction, there does not seem to be any difference in the time due to the type of content. For a streaming company it is very important to get the latest and the trendiest content so that customers use their platform compared to others. And Netflix has successfully decreased their content acquisition cost ten folds which may be a huge factor to its popularity.
 
 #### **Conclusion**
 
