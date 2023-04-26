@@ -314,7 +314,7 @@ ratings_df |> filter(rating %in% c("Kids","Teens","Adults")) |>
 
 Most of the content produced by US is targeted towards Adults so much so that it is almost equal to the content produced for Teens and Kids combined. Whereas, India's content is focused on Teens more than any other category. Rest of the countries produce most of their content for Adults followed by some content for kids and then Teens.This graph is interesting as it gives us insights into the culture of the country as well. India is more conservative in nature compared to US thus their focus might be on family friendly content. 
 
-##### **Figure 5: Content Acquisition Time by Release Year**
+### **Figure 5: Content Acquisition Time by Release Year**
 
 For this graph first the time difference between the release year and the date it is added to netflix needs to be calculated. Here a cuttoff of 2007 is used as Netflix started that year. This means any TV show or Movie released before Netflix was launched as a streaming platform is not considered.
 
