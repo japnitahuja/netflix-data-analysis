@@ -1,4 +1,4 @@
-# Analysis of Movies and TV shows on Netflix in R
+# Netflix in Charts: A Data Visualisation Project in R
 ***Author: Japnit Kaur Ahuja***
 
 The scope of this report is to analyse and visualize the [Netflix Movies and TV Shows](https://www.kaggle.com/datasets/shivamb/netflix-shows) retrieved from Kaggle on 31st March 2023. The data contains TV shows and Movies on the streaming platform Netlfix until mid-2021. This dataset is interesting as Netflix is one of the largest streaming services in the world. As of September 2021, Netflix has over 209 million subscribers in more than 190 countries worldwide. Due to its popularity and vast collection of movies and TV shows, the Netflix dataset is a great source for analysis.
